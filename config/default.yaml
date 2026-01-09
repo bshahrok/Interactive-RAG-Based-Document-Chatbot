@@ -1,0 +1,28 @@
+paths:
+  persist_dir: "data/chroma"
+
+chunking:
+  strategy: "fixed"
+  size: 1000
+  overlap: 150
+
+embeddings:
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"
+  device: "cpu"
+
+retrieval:
+  top_k: 5
+  min_score: 0.2
+
+llm:
+  backend: "local"          # local | api
+  local_runtime: "ollama"   # ollama | llama_cpp
+  model: "llama3"
+  temperature: 0.2
+  max_output_tokens: 300
+
+response:
+  concise_default: true
+  allow_expand: true
+
+grounding_strict: true
