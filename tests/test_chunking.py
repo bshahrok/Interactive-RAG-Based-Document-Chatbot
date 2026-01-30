@@ -3,7 +3,7 @@ import math
 from datetime import datetime
 
 from src.chunking import chunk_document
-from src.types import (
+from src.chunking_types import (
     ChunkingConfig,
     DocumentMetadata,
     PageContent,
