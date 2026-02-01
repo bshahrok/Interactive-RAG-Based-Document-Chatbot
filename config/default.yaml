@@ -2,7 +2,7 @@ paths:
   persist_dir: "data/chroma"
 
 chunking:
-  strategy: "fixed"
+  strategy: "recursive"  # Uses recursive character text splitting for better semantic coherence
   size: 1000
   overlap: 150
 
