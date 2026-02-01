@@ -3,7 +3,7 @@ from __future__ import annotations
 import uuid
 from typing import Iterator, List, Tuple
 
-from .chunck_types import (
+from src.chunk_types import (
     Chunk,
     ChunkingConfig,
     DocumentMetadata,

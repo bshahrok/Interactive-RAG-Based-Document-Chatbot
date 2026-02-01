@@ -8,7 +8,7 @@ if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
 from src.chunking import chunk_document
-from src.chunck_types import ChunkingConfig, DocumentMetadata, PageContent
+from src.chunk_types import ChunkingConfig, DocumentMetadata, PageContent
 
 
 def debug_word():
