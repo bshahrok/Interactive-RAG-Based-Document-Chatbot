@@ -64,8 +64,8 @@ def test_word_boundary_splitting():
 
 def test_pdf_page_association():
     # two pages with distinct markers
-    p1 = PageContent(page=1, text=("P1_" * 40).strip())
-    p2 = PageContent(page=2, text=("P2_" * 40).strip())
+    p1 = PageContent(page_number=1, text=("P1_" * 40).strip())
+    p2 = PageContent(page_number=2, text=("P2_" * 40).strip())
     pages = [p1, p2]
     # mimic chunker behavior that inserts a newline between pages
     full = p1.text + "\n" + p2.text + "\n"

@@ -24,7 +24,7 @@ def _build_text_and_page_map(content: ExtractedContent) -> Tuple[str, List[Tuple
     page_map: List[Tuple[int, int]] = []
     pos = 0
     for page in content:
-        page_map.append((pos, page.page))
+        page_map.append((pos, page.page_number))
         text = page.text or ""
         full.append(text)
         # add single newline between pages to avoid accidental joins
