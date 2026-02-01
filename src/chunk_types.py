@@ -30,7 +30,8 @@ ExtractedContent = Union[str, List[PageContent]]
 
 @dataclass
 class ChunkingConfig:
-    strategy: str = "fixed"
+    strategy: str = "fixed" # only 'fixed' supported currently
+    # todo @nb: add 'semantic', 'recursive' strategy later
     chunk_size: int = 500
     chunk_overlap: int = 50
 

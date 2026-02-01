@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from bisect import bisect_right
 import uuid
 from typing import Iterator, List, Tuple
 
@@ -34,14 +35,25 @@ def _build_text_and_page_map(content: ExtractedContent) -> Tuple[str, List[Tuple
     return "".join(full), page_map
 
 
-def _locate_page(page_map: List[Tuple[int, int]], char_index: int) -> int:
-    # page_map is sorted by start position
-    last_page = page_map[0][1]
-    for start_pos, page_num in page_map:
-        if char_index < start_pos:
-            break
-        last_page = page_num
-    return last_page
+def _locate_page(page_map: List[Tuple[int, int]], starts, char_index: int) -> int:
+    """Return the page number for the given character index using the page_map
+    
+    Given page_map = [(char_start, page_number), ...] sorted by char_start,
+    return the page_number for the page whose start is <= char_index.
+
+    If page_map is empty, default to page 1.
+    """
+    if not page_map:
+        return 1
+
+    # bisect_right returns an index i such that all entries at positions < i
+    # have start <= char_index
+    i = bisect_right(starts, char_index) - 1
+    if i < 0:
+        # char_index is before the first mapped start (shouldn't usually happen)
+        return page_map[0][1]
+    
+    return page_map[i][1]
 
 
 def chunk_document(
@@ -65,8 +77,15 @@ def chunk_document(
         raise ValueError("chunk_overlap must be smaller than chunk_size")
 
     full_text, page_map = _build_text_and_page_map(content)
+    
     total = len(full_text)
     step = config.chunk_size - config.chunk_overlap
+    if step <= 0:
+        raise ValueError("chunk_size must be greater than chunk_overlap to make progress")
+    
+    # page_map is sorted by start position
+
+    starts = [s for s, _ in page_map]   # <- precompute once
 
     index = 0
     start = 0
@@ -117,7 +136,8 @@ def chunk_document(
         text_preview = chunk_text[:100]
 
         # Use the trimmed start position to map to the correct page
-        location = _locate_page(page_map, trimmed_start)
+        # starts is precomputed list of start positions
+        location = _locate_page(page_map, starts, trimmed_start)
 
         yield Chunk(
             chunk_id=str(uuid.uuid4()),
