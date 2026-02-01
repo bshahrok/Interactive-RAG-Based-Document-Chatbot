@@ -19,6 +19,10 @@ from src.chunking import (
 from src.ingestion import DocumentMetadata, ExtractedText, PageContent
 
 
+# Fixed datetime for deterministic tests
+FIXED_DATETIME = datetime(2024, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+
+
 class TestChunkingConfig:
     """Test ChunkingConfig validation."""
     
@@ -182,7 +186,7 @@ class TestChunkDocument:
             document_id="doc-123",
             filename="test.pdf",
             filetype="pdf",
-            ingested_at=datetime.now(timezone.utc)
+            ingested_at=FIXED_DATETIME
         )
         
         extracted = ExtractedText(
@@ -215,7 +219,7 @@ class TestChunkDocument:
             document_id="doc-456",
             filename="test.docx",
             filetype="docx",
-            ingested_at=datetime.now(timezone.utc)
+            ingested_at=FIXED_DATETIME
         )
         
         extracted = ExtractedText(
@@ -245,7 +249,7 @@ class TestChunkDocument:
             document_id="doc-789",
             filename="test.txt",
             filetype="txt",
-            ingested_at=datetime.now(timezone.utc)
+            ingested_at=FIXED_DATETIME
         )
         
         extracted = ExtractedText(
@@ -272,7 +276,7 @@ class TestChunkDocument:
             document_id="doc-seq",
             filename="test.txt",
             filetype="txt",
-            ingested_at=datetime.now(timezone.utc)
+            ingested_at=FIXED_DATETIME
         )
         
         extracted = ExtractedText(
@@ -294,7 +298,7 @@ class TestChunkDocument:
             document_id="doc-empty",
             filename="test.pdf",
             filetype="pdf",
-            ingested_at=datetime.now(timezone.utc)
+            ingested_at=FIXED_DATETIME
         )
         
         extracted = ExtractedText(
@@ -320,7 +324,7 @@ class TestChunkDocument:
             document_id="doc-pages",
             filename="test.pdf",
             filetype="pdf",
-            ingested_at=datetime.now(timezone.utc)
+            ingested_at=FIXED_DATETIME
         )
         
         # Create content with distinct pages
@@ -347,7 +351,7 @@ class TestChunkDocument:
             document_id="doc-unique",
             filename="test.txt",
             filetype="txt",
-            ingested_at=datetime.now(timezone.utc)
+            ingested_at=FIXED_DATETIME
         )
         
         extracted = ExtractedText(
@@ -369,7 +373,7 @@ class TestChunkDocument:
             document_id="doc-large",
             filename="large.txt",
             filetype="txt",
-            ingested_at=datetime.now(timezone.utc)
+            ingested_at=FIXED_DATETIME
         )
         
         # Create a large text (simulate a large document)

@@ -19,7 +19,7 @@ from src.ingestion import DocumentMetadata, ExtractedText, PageContent
 class ChunkingConfig:
     """Configuration for text chunking."""
     
-    strategy: str = "recursive"  # Currently only "recursive" is supported
+    strategy: str = "recursive"  # "recursive" (recommended) or "fixed" (simple character splitting)
     size: int = 1000  # Target chunk size in characters
     overlap: int = 150  # Overlap between chunks in characters
     
