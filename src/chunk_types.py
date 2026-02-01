@@ -2,10 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List, Optional, Union
-from typing import Literal
-
-
+from typing import List, Literal, Optional, Union
 @dataclass
 class DocumentMetadata:
     document_id: str
@@ -23,8 +20,9 @@ class DocumentMetadata:
 
 @dataclass
 class PageContent:
-    page: int
+    page_number: Optional[int]
     text: str
+    paragraph_index: Optional[int] = None
 
 
 ExtractedContent = Union[str, List[PageContent]]

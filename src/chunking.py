@@ -8,7 +8,7 @@ from src.chunk_types import (
     ChunkingConfig,
     DocumentMetadata,
     ExtractedContent,
-    PageContent,
+
 )
 
 
@@ -57,6 +57,10 @@ def chunk_document(
     - Assigns `location` as the PDF page where the chunk starts (if page-aware input).
     - Deterministic: same input + config => same chunks.
     """
+    if config.chunk_size <= 0:
+        raise ValueError("chunk_size must be positive")
+    if config.chunk_overlap < 0:
+        raise ValueError("chunk_overlap must be non-negative")
     if config.chunk_overlap >= config.chunk_size:
         raise ValueError("chunk_overlap must be smaller than chunk_size")
 
@@ -75,7 +79,7 @@ def chunk_document(
         # original character-based start when computing `location` so that
         # location mapping remains deterministic and consistent with exact
         # character positions.
-        orig_chunk_text = chunk_text
+
 
         # Determine trimmed boundaries within the original character window
         trimmed_start = start
@@ -109,7 +113,7 @@ def chunk_document(
             index += 1
             continue
 
-        # strip leading/trailing whitespace for preview
+        # Create a short preview from the first 100 characters of the trimmed chunk
         text_preview = chunk_text[:100]
 
         # Use the trimmed start position to map to the correct page

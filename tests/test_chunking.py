@@ -79,12 +79,6 @@ def test_pdf_page_association():
         ingested_at=datetime.utcnow(),
     )
 
-    # compute page start positions same as chunker
-    page_starts = [0]
-    pos = 0
-    for p in pages:
-        page_starts.append(pos)
-        pos += len(p.text) + 1
 
     for ch in chunk_document(meta, pages, cfg):
         # locate chunk text in full
